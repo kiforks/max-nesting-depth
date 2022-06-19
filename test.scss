@@ -1,0 +1,5 @@
+.block {
+	@include media-min(xs) {
+		margin: 0;
+	}
+}
