@@ -153,7 +153,7 @@ module.exports = stylelint.createPlugin(ruleName, (primary, secondaryOptions) =>
  * @returns {string | undefined}
  */
 function extractPseudoRule(selector) {
-	return selector.startsWith('&:') && selector.substr(2);
+	return selector.startsWith('&:') && (selector.startsWith('&::ng-deep') || (selector[2] !== ':' ? selector.substr(2) : undefined));
 }
 
 module.exports.ruleName = ruleName;

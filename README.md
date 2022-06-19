@@ -26,4 +26,4 @@ _.stylelintrc_
 ```
 
 ## Description
-This is a custom broken order with the ability to ignore not only pseudo classes, but also pseudo elements. All information about this rule you can find here - https://stylelint.io/user-guide/rules/list/max-nesting-depth/#optional-secondary-options
+This is a rule that is included in the standard styling package, but with an exception ```::ng-deep```  https://stylelint.io/user-guide/rules/list/max-nesting-depth/#optional-secondary-options
