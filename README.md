@@ -1,43 +1,29 @@
-# kiforks/media-query-nesting
-The rule due to which only style properties can be inside the media query
+# kiforks/max-nesting-depth
+Limit the depth of nesting.
 
 ## Installation
 
 ```bash
-npm install kiforks/media-query-nesting --save-dev
+npm install kiforks/max-nesting-depth
 ```
 
 ## Usage
 
 If your project does not already have stylelint, then in the root of the project create the file `.stylelintrc`, or with the extension `.stylelintrc.js` so that the code editor can highlight the syntax.
 
-Then add `kiforks/media-query-nesting` to the `.stylelintrc` config file.
+Then add `kiforks/max-nesting-depth` to the `.stylelintrc` config file.
 
 _.stylelintrc_
 ```json
 {
     "plugins": [
-      "kiforks/media-query-nesting"
+      "kiforks/max-nesting-depth"
     ],
     "rules": {
-	    "kiforks/media-query-nesting": true
+	    "kiforks/max-nesting-depth": [3]
     }
 }
 ```
 
-**ATTENTION!** This config is for media [mixins](https://gist.github.com/kifork/0c449aace117fb4db7695aea34b63925) instead of **media queries**:
-```scss
-/* BAD */
-@include media-min(xs) {
-  .block {
-	  width: 300px;
-  }
-}
-
-/* GOOD */
-.block {
-	@include media-min(xs) {
-		width: 300px;
-    }
-}
-```
+## Description
+This is a custom broken order with the ability to ignore not only pseudo classes, but also pseudo elements. All information about this rule you can find here - https://stylelint.io/user-guide/rules/list/max-nesting-depth/#optional-secondary-options

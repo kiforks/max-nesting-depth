@@ -1,8 +1,0 @@
-{
-	"plugins": [
-		"./index.js"
-	],
-	"rules": {
-		"kiforks/media-query-nesting": true
-	}
-}
