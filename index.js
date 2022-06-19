@@ -61,14 +61,14 @@ module.exports = stylelint.createPlugin(ruleName, (primary, secondaryOptions) =>
 		 * @returns {boolean}
 		 */
 		function containsIgnoredPseudoClassesOnly(selectors) {
-			if (!(secondaryOptions && secondaryOptions.ignorePseudo)) return false;
+			if (!(secondaryOptions && secondaryOptions.ignorePseudoClasses)) return false;
 
 			return selectors.every((selector) => {
 				const pseudoRule = extractPseudoRule(selector);
 
 				if (!pseudoRule) return false;
 
-				return optionsMatches(secondaryOptions, 'ignorePseudo', pseudoRule);
+				return optionsMatches(secondaryOptions, 'ignorePseudoClasses', pseudoRule);
 			});
 		}
 
@@ -76,7 +76,7 @@ module.exports = stylelint.createPlugin(ruleName, (primary, secondaryOptions) =>
 			(optionsMatches(secondaryOptions, 'ignore', 'blockless-at-rules') &&
 				isAtRule(node) &&
 				node.every((child) => !isDeclaration(child))) ||
-			(optionsMatches(secondaryOptions, 'ignore', 'pseudo') &&
+			(optionsMatches(secondaryOptions, 'ignore', 'pseudo-classes') &&
 				isRule(node) &&
 				containsPseudoClassesOnly(node.selector)) ||
 			(isRule(node) && containsIgnoredPseudoClassesOnly(node.selectors))
@@ -106,9 +106,9 @@ module.exports = stylelint.createPlugin(ruleName, (primary, secondaryOptions) =>
 				optional: true,
 				actual: secondaryOptions,
 				possible: {
-					ignore: ['blockless-at-rules', 'pseudo'],
+					ignore: ['blockless-at-rules', 'pseudo-classes'],
 					ignoreAtRules: [isString, isRegExp],
-					ignorePseudo: [isString, isRegExp],
+					ignorePseudoClasses: [isString, isRegExp],
 				},
 			},
 		);
