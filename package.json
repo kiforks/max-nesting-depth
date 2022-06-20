@@ -1,6 +1,6 @@
 {
   "name": "max-nesting-depth",
-  "version": "1.2.1",
+  "version": "1.2.5",
   "description": "SCSS max nesting depth rule",
   "main": "index.js",
   "keywords": [

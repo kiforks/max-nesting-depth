@@ -18,6 +18,8 @@ const messages = ruleMessages(ruleName, {
 });
 
 module.exports = stylelint.createPlugin(ruleName, (primary, secondaryOptions) => {
+	let hostLevel = 0;
+
 	/**
 	 * @param {import('postcss').Node} node
 	 */
@@ -42,7 +44,7 @@ module.exports = stylelint.createPlugin(ruleName, (primary, secondaryOptions) =>
 		// when this function, recursively called, receives
 		// a node that is not nested -- a direct child of the
 		// root node
-		if (isRoot(parent) || (isAtRule(parent) && parent.parent && isRoot(parent.parent))) {
+		if (isRoot(parent) || (parent.selector === ':host') || (isAtRule(parent) && parent.parent && isRoot(parent.parent))) {
 			return level;
 		}
 
@@ -88,6 +90,7 @@ module.exports = stylelint.createPlugin(ruleName, (primary, secondaryOptions) =>
 		// add 1 to the nesting depth level and then check the parent,
 		// continuing to add and move up the hierarchy
 		// until we hit the root node
+
 		return nestingDepth(parent, level + 1);
 	}
 
@@ -134,7 +137,11 @@ module.exports = stylelint.createPlugin(ruleName, (primary, secondaryOptions) =>
 				return;
 			}
 
-			const depth = nestingDepth(statement, 0);
+			if (root.nodes[0].text?.includes(':host')) {
+				hostLevel = -1;
+			}
+
+			const depth = nestingDepth(statement, hostLevel);
 
 			if (depth > primary) {
 				report({
@@ -153,7 +160,11 @@ module.exports = stylelint.createPlugin(ruleName, (primary, secondaryOptions) =>
  * @returns {string | undefined}
  */
 function extractPseudoRule(selector) {
-	return selector.startsWith('&:') && (selector.startsWith('&::ng-deep') || (selector[2] !== ':' ? selector.substr(2) : undefined));
+	if (selector.startsWith('::ng-deep') || selector.startsWith('&::ng-deep')) {
+		return '&::ng-deep';
+	}
+
+	return selector.startsWith('&:') && selector[2] !== ':' ? selector.substr(2) : undefined;
 }
 
 module.exports.ruleName = ruleName;
