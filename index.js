@@ -98,26 +98,6 @@ module.exports = stylelint.createPlugin(ruleName, (primary, secondaryOptions) =>
 		isAtRule(node) && optionsMatches(secondaryOptions, 'ignoreAtRules', node.name);
 
 	return (root, result) => {
-		const validOptions = validateOptions(
-			result,
-			ruleName,
-			{
-				actual: primary,
-				possible: [isNumber],
-			},
-			{
-				optional: true,
-				actual: secondaryOptions,
-				possible: {
-					ignore: ['blockless-at-rules', 'pseudo-classes'],
-					ignoreAtRules: [isString, isRegExp],
-					ignorePseudoClasses: [isString, isRegExp],
-				},
-			},
-		);
-
-		if (!validOptions) return;
-
 		root.walkRules(checkStatement);
 		root.walkAtRules(checkStatement);
 
