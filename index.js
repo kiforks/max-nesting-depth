@@ -90,7 +90,6 @@ module.exports = stylelint.createPlugin(ruleName, (primary, secondaryOptions) =>
 		// add 1 to the nesting depth level and then check the parent,
 		// continuing to add and move up the hierarchy
 		// until we hit the root node
-
 		return nestingDepth(parent, level + 1);
 	}
 
@@ -98,6 +97,26 @@ module.exports = stylelint.createPlugin(ruleName, (primary, secondaryOptions) =>
 		isAtRule(node) && optionsMatches(secondaryOptions, 'ignoreAtRules', node.name);
 
 	return (root, result) => {
+		const validOptions = validateOptions(
+			result,
+			ruleName,
+			{
+				actual: primary,
+				possible: [isNumber],
+			},
+			{
+				optional: true,
+				actual: secondaryOptions,
+				possible: {
+					ignore: ['blockless-at-rules', 'pseudo-classes'],
+					ignoreAtRules: [isString, isRegExp],
+					ignorePseudoClasses: [isString, isRegExp],
+				},
+			},
+		);
+
+		if (!validOptions) return;
+
 		root.walkRules(checkStatement);
 		root.walkAtRules(checkStatement);
 
@@ -144,7 +163,7 @@ function extractPseudoRule(selector) {
 		return '&::ng-deep';
 	}
 
-	return selector.startsWith('&:') && selector[2] !== ':' ? selector.substr(2) : undefined;
+	return selector.startsWith('&:') && selector[2] !== ':' ? selector.slice(2) : undefined;
 }
 
 module.exports.ruleName = ruleName;

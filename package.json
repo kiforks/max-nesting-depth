@@ -1,6 +1,6 @@
 {
   "name": "max-nesting-depth",
-  "version": "1.4.0",
+  "version": "1.6.0",
   "description": "SCSS max nesting depth rule",
   "main": "index.js",
   "keywords": [
@@ -44,6 +44,7 @@
     "stylelint-scss": "^4.1.0"
   },
   "dependencies": {
-    "postcss-selector-parser": "^6.0.10"
+    "is-plain-object": "^5.0.0",
+    "postcss-selector-parser": "^6.0.11"
   }
 }
