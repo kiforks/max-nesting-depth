@@ -1,26 +1,26 @@
-# kiforks/max-nesting-depth
+# tc/max-nesting-depth
 Limit the depth of nesting.
 
 ## Installation
 
 ```bash
-npm install kiforks/max-nesting-depth
+npm install tc/max-nesting-depth
 ```
 
 ## Usage
 
 If your project does not already have stylelint, then in the root of the project create the file `.stylelintrc`, or with the extension `.stylelintrc.js` so that the code editor can highlight the syntax.
 
-Then add `kiforks/max-nesting-depth` to the `.stylelintrc` config file.
+Then add `tc/max-nesting-depth` to the `.stylelintrc` config file.
 
 _.stylelintrc_
 ```json
 {
     "plugins": [
-      "kiforks/max-nesting-depth"
+      "tc/max-nesting-depth"
     ],
     "rules": {
-	    "kiforks/max-nesting-depth": [3]
+	    "tc/max-nesting-depth": [3]
     }
 }
 ```

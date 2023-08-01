@@ -11,7 +11,7 @@ const { isAtRule, isDeclaration, isRoot, isRule } = require('./utils/typeGuards'
 const { isNumber, isRegExp, isString } = require('./utils/validateTypes');
 const stylelint = require('stylelint');
 
-const ruleName = 'kiforks/max-nesting-depth';
+const ruleName = 'tc/max-nesting-depth';
 
 const messages = ruleMessages(ruleName, {
 	expected: (depth) => `Expected nesting depth to be no more than ${depth}`,
